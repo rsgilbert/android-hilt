@@ -24,8 +24,9 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // hilt android gradle plugin
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
-    }
+     }
 }
 
 allprojects {
