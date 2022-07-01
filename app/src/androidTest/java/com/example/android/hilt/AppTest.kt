@@ -16,6 +16,7 @@
 
 package com.example.android.hilt
 
+import androidx.room.Room
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -25,6 +26,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
+import com.example.android.hilt.data.AppDatabase
+import com.example.android.hilt.data.LoggerLocalDataSource
 import com.example.android.hilt.ui.MainActivity
 import org.hamcrest.Matchers.containsString
 import org.junit.After
@@ -34,10 +37,23 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class AppTest {
 
+    fun datasource() : LoggerLocalDataSource{
+        return LoggerLocalDataSource(testDb().logDao());
+    }
+
+    fun testDb() : AppDatabase {
+        return Room.databaseBuilder(
+            getInstrumentation().targetContext,
+            AppDatabase::class.java,
+            "test.db"
+        ).build()
+    }
+
     @After
     fun tearDown() {
+        datasource().removeLogs()
         // Remove logs after the test finishes
-        ServiceLocator(getInstrumentation().targetContext).loggerLocalDataSource.removeLogs()
+//        ServiceLocator(getInstrumentation().targetContext).loggerLocalDataSource.removeLogs()
     }
 
     @Test
