@@ -29,13 +29,20 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import com.example.android.hilt.data.AppDatabase
 import com.example.android.hilt.data.LoggerLocalDataSource
 import com.example.android.hilt.ui.MainActivity
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import org.hamcrest.Matchers.containsString
 import org.junit.After
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
+@HiltAndroidTest
 class AppTest {
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
     fun datasource() : LoggerLocalDataSource{
         return LoggerLocalDataSource(testDb().logDao());

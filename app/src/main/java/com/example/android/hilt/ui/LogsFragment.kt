@@ -28,7 +28,7 @@ import javax.inject.Inject
 // attached to is also annotated with @AndroidEntryPoint.
 @AndroidEntryPoint
 class LogsFragment : Fragment() {
-    @InMemoryLogger
+    @DatabaseLogger
     @Inject
     lateinit var logger: LoggerDataSource
     @Inject
